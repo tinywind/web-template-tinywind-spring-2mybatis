@@ -14,4 +14,8 @@
         WHERE user_entity.login_id = #{id}
               AND user_entity.password = password(#{password})
     </select>
+
+    <insert id="insert" parameterType="UserEntity">
+        INSERT user_entity (login_id, password, creator) VALUES (#{loginId}, password(#{password}), #{creator})
+    </insert>
 </mapper>

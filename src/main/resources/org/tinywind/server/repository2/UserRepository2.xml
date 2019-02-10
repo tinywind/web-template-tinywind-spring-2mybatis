@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tinywind.server.repository2.UserRepository2">
+    <insert id="insert" parameterType="UserEntity">
+        INSERT user_entity (login_id, password, creator) VALUES (#{loginId}, password(#{password}), #{creator})
+    </insert>
+</mapper>

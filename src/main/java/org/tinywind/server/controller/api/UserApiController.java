@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.tinywind.server.model.UserEntity;
 import org.tinywind.server.model.form.LoginForm;
 import org.tinywind.server.repository1.UserRepository;
+import org.tinywind.server.service.MultipleTransactionTest;
 import org.tinywind.server.util.JsonResult;
 
 import javax.validation.Valid;
@@ -26,6 +27,8 @@ public class UserApiController extends ApiBaseController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private MultipleTransactionTest transactionTest;
 
     @ApiOperation("로그인")
     @PostMapping("login")
@@ -50,6 +53,26 @@ public class UserApiController extends ApiBaseController {
     @GetMapping("logout")
     public JsonResult logout() {
         g.invalidateSession();
+        return JsonResult.create();
+    }
+
+    @GetMapping("transaction1")
+    public JsonResult transaction1() {
+        try {
+            transactionTest.forceError1();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return JsonResult.create();
+    }
+
+    @GetMapping("transaction2")
+    public JsonResult transaction2() {
+        try {
+            transactionTest.forceError2();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
         return JsonResult.create();
     }
 }

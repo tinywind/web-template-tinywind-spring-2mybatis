@@ -45,10 +45,57 @@
         </div>
     </div>
 
+    <style>
+        table td, table th {border: solid 1px black; text-align: center; padding: 1em;}
+    </style>
+
+    <div class="row">
+        <h3>멀티플 트랜잭션 테스트</h3>
+
+        <div style="padding: 1em;">
+            <table style="table-layout: fixed; width: 100%">
+                <thead>
+                <tr>
+                    <th style="width: 50%">트랜잭션1</th>
+                    <th style="width: 50%">트랜잭션2</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>
+                        <button type="button" onclick="transaction1()">테스트</button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="transaction2()">테스트</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </form:form>
 
 
 <tags:scripts>
+    <script>
+        function transaction1() {
+            restSelf.get("/api/user/transaction1").done(function () {
+                alert("DB1에 '1234'계정이 없다면 옳바르게 성공한 것입니다.")
+            }).fail(function () {
+                console.log(arguments);
+            });
+        }
+
+        function transaction2() {
+            restSelf.get("/api/user/transaction2").done(function () {
+                alert("DB2에 '1234'계정이 없다면 옳바르게 성공한 것입니다.")
+            }).fail(function () {
+                console.log(arguments);
+            });
+        }
+    </script>
     <script>
         const STORAGE_KEY = 'loginForm';
         const form = $('#login-form');

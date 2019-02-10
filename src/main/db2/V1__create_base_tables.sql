@@ -1,4 +1,4 @@
-CREATE TABLE user_entity2 (
+CREATE TABLE user_entity (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
 
   login_id VARCHAR(50) NOT NULL COMMENT '로그인 ID',
@@ -10,7 +10,7 @@ CREATE TABLE user_entity2 (
   UNIQUE (login_id)
 ) COMMENT '파일' ENGINE = InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE file_entity2 (
+CREATE TABLE file_entity (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
 
   size BIGINT NOT NULL COMMENT '파일 사이즈',

@@ -135,6 +135,7 @@ public class PersistenceConfig1 {
         return factoryBean;
     }
 
+//    @Qualifier("transactionManager1")
     @Bean("transactionManager1")
     public DataSourceTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
