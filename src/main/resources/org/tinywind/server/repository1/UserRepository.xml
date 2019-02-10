@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tinywind.server.repository1.UserRepository">
+    <select id="findOneById" parameterType="string" resultType="UserEntity">
+        SELECT user_entity.*
+        FROM user_entity
+        WHERE user_entity.login_id = #{value}
+    </select>
+
+    <select id="findOneByIdAndPassword" parameterType="LoginForm" resultType="UserEntity">
+        SELECT user_entity.*
+        FROM user_entity
+        WHERE user_entity.login_id = #{id}
+              AND user_entity.password = password(#{password})
+    </select>
+</mapper>
