@@ -9,12 +9,16 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.tinywind.server.model.UserEntity;
+import org.tinywind.server.model.form.JoinForm;
 import org.tinywind.server.model.form.LoginForm;
 import org.tinywind.server.repository1.UserRepository;
+import org.tinywind.server.service.FileService;
 import org.tinywind.server.service.MultipleTransactionTest;
 import org.tinywind.server.util.JsonResult;
+import org.tinywind.server.util.ReflectionUtils;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 /**
  * @author tinywind
@@ -28,7 +32,26 @@ public class UserApiController extends ApiBaseController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private FileService fileService;
+    @Autowired
     private MultipleTransactionTest transactionTest;
+
+    @PostMapping("")
+    public JsonResult<?> join(@RequestBody @Valid JoinForm form, BindingResult bindingResult) throws IOException {
+        if (!form.validate(bindingResult))
+            return JsonResult.create(bindingResult);
+
+        final UserEntity user = new UserEntity();
+        ReflectionUtils.copy(user, form);
+        user.setProfileImage(fileService.save(form.getProfileImage()));
+
+        userRepository.insert(user);
+
+        g.invalidateSession();
+        g.setCurrentUser(user);
+
+        return JsonResult.create();
+    }
 
     @ApiOperation("로그인")
     @PostMapping("login")

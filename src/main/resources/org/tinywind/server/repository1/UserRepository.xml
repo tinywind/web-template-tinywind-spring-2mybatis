@@ -3,19 +3,21 @@
 
 <mapper namespace="org.tinywind.server.repository1.UserRepository">
     <select id="findOneById" parameterType="string" resultType="UserEntity">
-        SELECT user_entity.*
+        SELECT user_entity.*, file_entity.path AS profile_image_path
         FROM user_entity
+        JOIN file_entity on user_entity.profile_image = file_entity.id
         WHERE user_entity.login_id = #{value}
     </select>
 
     <select id="findOneByIdAndPassword" parameterType="LoginForm" resultType="UserEntity">
-        SELECT user_entity.*
+        SELECT user_entity.*, file_entity.path AS profile_image_path
         FROM user_entity
+        JOIN file_entity on user_entity.profile_image = file_entity.id
         WHERE user_entity.login_id = #{id}
               AND user_entity.password = password(#{password})
     </select>
 
     <insert id="insert" parameterType="UserEntity">
-        INSERT user_entity (login_id, password, creator) VALUES (#{loginId}, password(#{password}), #{creator})
+        INSERT user_entity (login_id, password, profile_image, creator) VALUES (#{loginId}, password(#{password}), #{profileImage}, #{creator})
     </insert>
 </mapper>

@@ -9,7 +9,6 @@
 
 <%--@elvariable id="g" type="org.tinywind.server.config.RequestGlobal"--%>
 <%--@elvariable id="cached" type="org.tinywind.server.config.CachedEntity"--%>
-<%--@elvariable id="user" type="org.tinywind.server.model.resolved.User"--%>
 <%--@elvariable id="version" type="java.lang.String"--%>
 
 <%--@elvariable id="form" type="org.tinywind.server.model.form.LoginForm"--%>
@@ -44,6 +43,12 @@
             <button type="submit" class="color-white bcolor-brand">로그인</button>
         </div>
     </div>
+
+    <div style="padding-top: 100px;"></div>
+    <div>
+        <a href="<c:url value="/join"/>" >가입하기</a>
+    </div>
+    <div style="padding-top: 100px;"></div>
 
     <style>
         table td, table th {border: solid 1px black; text-align: center; padding: 1em;}

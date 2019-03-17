@@ -1,0 +1,2 @@
+ALTER TABLE user_entity ADD profile_image BIGINT NULL COMMENT '프로필 이미지';
+ALTER TABLE user_entity ADD CONSTRAINT user_entity_profile_image_file_entity_id_fk FOREIGN KEY (profile_image) REFERENCES file_entity (id);

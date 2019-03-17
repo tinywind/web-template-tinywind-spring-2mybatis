@@ -52,6 +52,11 @@ public class MainController extends BaseController {
         return "login";
     }
 
+    @GetMapping("join")
+    public String joinPage() {
+        return "join";
+    }
+
     @LoginRequired
     @GetMapping("main")
     public String mainPage(Model model) {

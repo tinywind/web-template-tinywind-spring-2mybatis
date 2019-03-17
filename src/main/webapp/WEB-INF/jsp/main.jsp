@@ -9,8 +9,14 @@
 
 <%--@elvariable id="g" type="org.tinywind.server.config.RequestGlobal"--%>
 <%--@elvariable id="cached" type="org.tinywind.server.config.CachedEntity"--%>
-<%--@elvariable id="user" type="org.tinywind.server.model.resolved.User"--%>
+<%--@elvariable id="user" type="org.tinywind.server.model.UserEntity"--%>
 <%--@elvariable id="version" type="java.lang.String"--%>
 
-<tags:layout activeTab="dashboard">
+<tags:layout >
+
+    <c:if test="${user.profileImagePath != null}">
+        <img src="<c:url value="/files/download?file=${g.htmlQuote(user.profileImagePath)}"/>"/>
+    </c:if>
+
+
 </tags:layout>
