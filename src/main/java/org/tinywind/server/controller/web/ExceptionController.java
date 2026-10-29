@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
 /**
@@ -35,7 +35,7 @@ public class ExceptionController extends BaseController {
         final Enumeration<String> names = request.getAttributeNames();
         while (names.hasMoreElements()) {
             final String name = names.nextElement();
-            if (!name.startsWith("javax.servlet")) continue;
+            if (!name.startsWith("jakarta.servlet")) continue;
             final Object attribute = request.getAttribute(name);
             logger.info(name + ": " + attribute);
         }

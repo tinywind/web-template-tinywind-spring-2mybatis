@@ -1,24 +1,30 @@
 package org.tinywind.server.config;
 
-import com.google.common.base.Predicate;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import org.springdoc.core.configuration.SpringDocConfiguration;
+import org.springdoc.core.properties.SpringDocConfigProperties;
+import org.springdoc.core.properties.SwaggerUiConfigProperties;
+import org.springdoc.core.properties.SwaggerUiOAuthProperties;
+import org.springdoc.webmvc.core.configuration.SpringDocWebMvcConfiguration;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.autoconfigure.web.WebProperties;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import static com.google.common.base.Predicates.containsPattern;
-import static com.google.common.base.Predicates.or;
-
-@EnableSwagger2
+@Configuration
 @PropertySource("classpath:swagger.properties")
+@EnableConfigurationProperties(SpringDocConfigProperties.class)
+@Import({SpringDocConfiguration.class, SpringDocWebMvcConfiguration.class})
 public class SwaggerConfig {
-
     @Value("${contract.name}")
     private String name;
     @Value("${contract.url}")
@@ -29,23 +35,17 @@ public class SwaggerConfig {
     private String apiPath;
 
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(paths())
-                .build()
-                .apiInfo(apiInfo());
+    public OpenAPI api(SpringDocConfigProperties properties) {
+        properties.setPathsToMatch(List.of(("/" + apiPath + "/**").replaceAll("[/]+", "/")));
+        return new OpenAPI().info(new Info().version("0.1")
+                .contact(new Contact().name(name).url(url).email(email)));
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .contact(new Contact(name, url, email))
-                .version("0.1")
-                .build();
-    }
-
-    private Predicate<String> paths() {
-        return or(containsPattern(("/" + apiPath + "/*").replaceAll("[/]+", "/")));
+    @Configuration
+    @ConditionalOnProperty(name = "application.devel", havingValue = "true", matchIfMissing = true)
+    @EnableConfigurationProperties({SwaggerUiConfigProperties.class, SwaggerUiOAuthProperties.class,
+            WebProperties.class, WebMvcProperties.class})
+    @ImportAutoConfiguration(org.springdoc.webmvc.ui.SwaggerConfig.class)
+    public static class SwaggerUiConfiguration {
     }
 }

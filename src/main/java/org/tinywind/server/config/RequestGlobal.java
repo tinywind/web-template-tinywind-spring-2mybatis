@@ -10,7 +10,7 @@ import org.tinywind.server.service.FileService;
 import org.tinywind.server.service.storage.SessionStorage;
 import org.tinywind.server.util.spring.SpringApplicationContextAware;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DateFormat;

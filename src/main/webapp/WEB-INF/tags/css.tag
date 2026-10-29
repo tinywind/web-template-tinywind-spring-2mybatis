@@ -16,9 +16,9 @@
 <!-- external library common -->
 
 <!-- external library depend -->
-<link href="<c:url value="/webjars/font-awesome/5.0.9/web-fonts-with-css/css/fontawesome-all.min.css"/>" rel="stylesheet"/>
-<link href="<c:url value="/webjars/jquery-ui/1.12.1/jquery-ui.min.css"/>" rel="stylesheet"/>
-<link href="<c:url value="/webjars/toastr/2.1.2/build/toastr.css"/>" rel="stylesheet"/>
+<link href="<c:url value="/webjars/font-awesome/5.15.4/css/all.min.css"/>" rel="stylesheet"/>
+<link href="<c:url value="/webjars/jquery-ui/1.14.2/jquery-ui.min.css"/>" rel="stylesheet"/>
+<link href="<c:url value="/webjars/toastr/2.1.4/build/toastr.css"/>" rel="stylesheet"/>
 
 <%-- depend --%>
 <link href="<c:url value="/resources/css/base.css?version=${version}"/>" rel="stylesheet"/>

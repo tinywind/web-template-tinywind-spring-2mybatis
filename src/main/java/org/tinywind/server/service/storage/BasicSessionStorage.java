@@ -2,7 +2,7 @@ package org.tinywind.server.service.storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 public class BasicSessionStorage implements SessionStorage {
     @Autowired

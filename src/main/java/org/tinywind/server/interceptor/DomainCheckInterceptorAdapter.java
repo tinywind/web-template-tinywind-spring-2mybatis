@@ -4,17 +4,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * @author tinywind
  */
 @Component
 @PropertySource("classpath:application.properties")
-public class DomainCheckInterceptorAdapter extends HandlerInterceptorAdapter {
+public class DomainCheckInterceptorAdapter implements HandlerInterceptor {
 
     @Value("${server.domain}")
     protected String domain;
