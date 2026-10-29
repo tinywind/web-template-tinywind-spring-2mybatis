@@ -16,7 +16,7 @@
 
 <!-- external library common -->
 <script src="<c:url value="/webjars/jquery/3.7.1/jquery.min.js"/>"></script>
-<script src="<c:url value="/webjars/jquery-blockui/2.65/jquery.blockUI.js"/>"></script>
+<script src="<c:url value="/webjars/jquery-blockui/2.70/jquery.blockUI.js"/>"></script>
 <script src="<c:url value="/webjars/momentjs/2.31.0/moment.min.js"/>"></script>
 <script src="<c:url value="/webjars/toastr/2.1.4/toastr.js"/>"></script>
 
