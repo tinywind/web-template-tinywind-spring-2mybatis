@@ -19,7 +19,7 @@
 <!-- external library common -->
 
 <!-- external library depend -->
-<link href="<c:url value="/webjars/font-awesome/5.15.4/css/all.min.css"/>" rel="stylesheet"/>
+<link href="<c:url value="/webjars/font-awesome/7.3.0/css/all.min.css"/>" rel="stylesheet"/>
 <link href="<c:url value="/webjars/jquery-ui/1.14.2/jquery-ui.min.css"/>" rel="stylesheet"/>
 <link href="<c:url value="/webjars/toastr/2.1.4/build/toastr.css"/>" rel="stylesheet"/>
 
