@@ -21,7 +21,7 @@
         <org.slf4j.version>2.0.20</org.slf4j.version>
         <ch.qos.logback.version>1.6.6</ch.qos.logback.version>
         <com.fasterxml.jackson.version>2.22.4</com.fasterxml.jackson.version>
-        <org.apache.poi.version>5.5.1</org.apache.poi.version>
+        <org.apache.poi.version>6.0.0</org.apache.poi.version>
     </properties>
 
     <dependencyManagement>
