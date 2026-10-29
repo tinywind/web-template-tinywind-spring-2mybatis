@@ -20,8 +20,12 @@ import org.tinywind.server.repository2.TestRepository;
 import org.tinywind.server.service.FileService;
 
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
+import org.tinywind.server.util.StoredFilePaths;
+
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
 import java.io.IOException;
 import java.net.URLEncoder;
 
@@ -65,11 +69,24 @@ public class MainController extends BaseController {
 
     @GetMapping(FileService.FILE_PATH)
     public void downloadFile(HttpServletResponse response, @RequestParam(FileService.FILE_REQUEST_PARAM_KEY) String fileName) throws IOException {
+        final Path file;
+        try {
+            file = StoredFilePaths.resolve(fileLocation, fileName);
+        } catch (IllegalArgumentException invalidName) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        if (!Files.isRegularFile(file, LinkOption.NOFOLLOW_LINKS)) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
         response.setContentType("application/download; charset=utf-8");
         response.setHeader("Content-Disposition", "attachment; filename=\""
                 + URLEncoder.encode(fileName, "UTF-8").replaceAll("[+]", "%20") + "\";");
         response.setHeader("Content-Transfer-Encoding", "BINARY");
-        IOUtils.copy(new FileInputStream(new File(fileLocation, fileName)), response.getOutputStream());
+        try (InputStream input = Files.newInputStream(file, LinkOption.NOFOLLOW_LINKS)) {
+            IOUtils.copy(input, response.getOutputStream());
+        }
     }
 
     @GetMapping("favicon.ico")

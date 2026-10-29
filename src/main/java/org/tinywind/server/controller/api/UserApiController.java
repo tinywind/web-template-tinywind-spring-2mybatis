@@ -13,6 +13,7 @@ import org.tinywind.server.model.form.JoinForm;
 import org.tinywind.server.model.form.LoginForm;
 import org.tinywind.server.repository1.UserRepository;
 import org.tinywind.server.service.FileService;
+import org.tinywind.server.interceptor.LoginRequired;
 import org.tinywind.server.service.MultipleTransactionTest;
 import org.tinywind.server.util.JsonResult;
 import org.tinywind.server.util.ReflectionUtils;
@@ -73,13 +74,14 @@ public class UserApiController extends ApiBaseController {
     }
 
     @Operation(summary = "로그아웃")
-    @GetMapping("logout")
+    @PostMapping("logout")
     public JsonResult logout() {
         g.invalidateSession();
         return JsonResult.create();
     }
 
-    @GetMapping("transaction1")
+    @LoginRequired
+    @PostMapping("transaction1")
     public JsonResult transaction1() {
         try {
             transactionTest.forceError1();
@@ -89,7 +91,8 @@ public class UserApiController extends ApiBaseController {
         return JsonResult.create();
     }
 
-    @GetMapping("transaction2")
+    @LoginRequired
+    @PostMapping("transaction2")
     public JsonResult transaction2() {
         try {
             transactionTest.forceError2();

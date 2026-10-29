@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
  * @author tinywind
  */
 @ControllerAdvice
-@PropertySource("classpath:application.properties")
+@PropertySource({"classpath:application.properties", "classpath:maven.properties"})
 public class GlobalBinder {
     @Autowired
     private TagExtender tagExtender;

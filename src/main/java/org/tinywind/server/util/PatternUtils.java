@@ -8,6 +8,6 @@ import java.util.regex.Pattern;
  */
 public class PatternUtils {
     public static boolean isEmail(String string) {
-        return Pattern.matches("^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$", string);
+        return Pattern.matches("^[_a-z0-9-]++(?:\\.[_a-z0-9-]++)*+@(?:\\w++\\.)++\\w++$", string);
     }
 }

@@ -1,6 +1,8 @@
 package org.tinywind.server.config;
 
 import org.springframework.core.annotation.Order;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -37,7 +39,11 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
-        return new Filter[] {characterEncodingFilter};
+        CsrfFilter csrf = new CsrfFilter(new HttpSessionCsrfTokenRepository());
+        // SockJS enforces the same origin on its HTTP transports.
+        csrf.setRequireCsrfProtectionMatcher(request -> CsrfFilter.DEFAULT_CSRF_MATCHER.matches(request)
+                && !request.getServletPath().startsWith("/ws/"));
+        return new Filter[] {characterEncodingFilter, csrf};
     }
 
     @Override
