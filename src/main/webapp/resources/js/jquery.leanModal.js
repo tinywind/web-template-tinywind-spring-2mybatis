@@ -117,7 +117,7 @@
                 }
 
                 const href = $(this).attr("href");
-                const modal = $(href != null ? href : $(this).attr('data-href'));
+                const modal = $(document).find(href != null ? href : $(this).attr('data-href'));
                 modal.detach().appendTo(overlayContainer);
 
                 if (modal.css('position') === 'fixed') {

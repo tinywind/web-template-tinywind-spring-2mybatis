@@ -1,3 +1,11 @@
+$(document).ajaxSend(function (event, xhr, settings) {
+    if (new URL(settings.url, window.location.href).origin !== window.location.origin
+        || /^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) return;
+    const token = document.querySelector('meta[name="_csrf"]');
+    const header = document.querySelector('meta[name="_csrf_header"]');
+    if (token && header) xhr.setRequestHeader(header.content, token.content);
+});
+
 const restUtils = (function ($) {
     function call(url, data, type, urlParam, noneBlockUi) {
         if (!noneBlockUi) $.blockUIFixed();
@@ -140,12 +148,12 @@ const userAgent = (function () {
             let rv = -1;
             if (navigator.appName === 'Microsoft Internet Explorer') {
                 const ua = navigator.userAgent;
-                const re = new RegExp("MSIE ([0-9]+[\.0-9]*)");
+                const re = new RegExp("MSIE ([0-9]+[.0-9]*)");
                 if (re.exec(ua) != null)
                     rv = parseFloat(RegExp.$1);
             } else if (navigator.appName === 'Netscape') {
                 const ua = navigator.userAgent;
-                const re = new RegExp("Trident/.*rv:([0-9]+[\.0-9]*)");
+                const re = new RegExp("Trident/.*rv:([0-9]+[.0-9]*)");
                 if (re.exec(ua) != null)
                     rv = parseFloat(RegExp.$1);
             }

@@ -86,7 +86,7 @@
 <tags:scripts>
     <script>
         function transaction1() {
-            restSelf.get("/api/user/transaction1").done(function () {
+            restSelf.post("/api/user/transaction1").done(function () {
                 alert("DB1에 '1234'계정이 없다면 옳바르게 성공한 것입니다.")
             }).fail(function () {
                 console.log(arguments);
@@ -94,7 +94,7 @@
         }
 
         function transaction2() {
-            restSelf.get("/api/user/transaction2").done(function () {
+            restSelf.post("/api/user/transaction2").done(function () {
                 alert("DB2에 '1234'계정이 없다면 옳바르게 성공한 것입니다.")
             }).fail(function () {
                 console.log(arguments);
