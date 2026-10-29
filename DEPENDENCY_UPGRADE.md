@@ -1,0 +1,15 @@
+# Dependency upgrade
+
+This template requires Java 17 and a Jakarta Servlet 6.1 container such as Tomcat 11. All Spring modules use 7.0.10. Spring 6.2.19 remains affected by GHSA-j9f9-w8pj-32f8 and GHSA-pc63-qcmh-9cmg; its successful build and runtime checks were insufficient for security acceptance.
+
+Run `mvn -Plocal verify` to compile, run the complete test suite, and package the WAR. Run `mvn -Plocal package cargo:run` to start Tomcat 11.0.27 at `/`, using the existing local database configuration. Cargo replaces the obsolete custom Tomcat 8.5 plugin. The old Tomcat 7 deployment profile is removed; deploy the WAR through your Jakarta container's deployment mechanism.
+
+API documentation moves from `/v2/api-docs` to `/v3/api-docs`. Swagger UI remains at `/swagger-ui.html`. The configured `api.path` still filters documented operations. Setting `application.devel=false` disables Swagger UI and the development resource handlers. Springdoc 3.2 uses Spring Boot 4.1.2 support libraries without converting this application into a Boot application.
+
+Servlet and validation imports use Jakarta. The container parses multipart uploads. JSP forms use `modelAttribute`. The portable WebSocket handshake handler replaces the removed Tomcat-specific strategy. Default message converters are retained so OpenAPI byte responses remain JSON objects. The explicit Jackson 2.22.4 converter preserves Joda serialization; annotations 2.22 also support Springdoc's Jackson 3 internals. The unused AsyncRestTemplate bean is removed because Spring removed that API; the existing RestTemplate bean remains available.
+
+MyBatis Spring 4.1, MyBatis 3.6, Hibernate Validator 9.1, Logback 1.5 with SLF4J 2, and POI 5.5 match this stack. Protobuf 3.25.9 and Log4j API 2.26.1 override vulnerable transitive releases. The misplaced runtime JUnit dependency is excluded where it enters through the JDBC logging wrapper. jQuery 3.7 and Font Awesome 5.15 preserve the existing page markup. WebJar references match the resolved package layouts, including Moment and Font Awesome.
+
+Validation used Maven 3.9.16 and Temurin 17.0.21. All eight tests pass. A real Tomcat 11.0.27 instance with disposable MariaDB 10.11 databases loaded from the repository SQL served the login JSP, filtered OpenAPI JSON object, Swagger UI, its JavaScript/configuration, all eight referenced WebJar assets, and SockJS information successfully. A Java 17 WebSocket client completed an actual HTTP 101 handshake. Supported login requests with missing fields returned structured 400 errors; nonexistent-user requests reached the database and returned a client error; the protected `/main` route returned 401 without a session. Tests also check Jakarta validation, Joda JSON, converter ordering, standalone documentation startup, and hiding Swagger UI in non-development mode.
+
+Production deployment and a complete authenticated browser workflow were not performed. An unsupported form-encoded login request was observed to return 500 from the existing exception policy; the supported JSON request checks passed. That unrelated exception policy is preserved.

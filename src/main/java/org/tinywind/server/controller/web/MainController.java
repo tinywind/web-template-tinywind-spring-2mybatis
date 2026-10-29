@@ -19,7 +19,7 @@ import org.tinywind.server.repository1.UserRepository;
 import org.tinywind.server.repository2.TestRepository;
 import org.tinywind.server.service.FileService;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

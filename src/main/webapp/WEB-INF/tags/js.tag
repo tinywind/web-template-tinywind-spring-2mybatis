@@ -15,13 +15,13 @@
 <%--@elvariable id="version" type="java.lang.String"--%>
 
 <!-- external library common -->
-<script src="<c:url value="/webjars/jquery/3.3.1/jquery.min.js"/>"></script>
+<script src="<c:url value="/webjars/jquery/3.7.1/jquery.min.js"/>"></script>
 <script src="<c:url value="/webjars/jquery-blockui/2.65/jquery.blockUI.js"/>"></script>
-<script src="<c:url value="/webjars/momentjs/2.21.0/min/moment.min.js"/>"></script>
-<script src="<c:url value="/webjars/toastr/2.1.2/toastr.js"/>"></script>
+<script src="<c:url value="/webjars/momentjs/2.31.0/moment.min.js"/>"></script>
+<script src="<c:url value="/webjars/toastr/2.1.4/toastr.js"/>"></script>
 
 <!-- external library depend -->
-<script src="<c:url value="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"/>"></script>
+<script src="<c:url value="/webjars/jquery-ui/1.14.2/jquery-ui.min.js"/>"></script>
 
 <%-- user library --%>
 <script src="<c:url value="/resources/js/string.ex.js?version=${version}"/>" data-type="library"></script>

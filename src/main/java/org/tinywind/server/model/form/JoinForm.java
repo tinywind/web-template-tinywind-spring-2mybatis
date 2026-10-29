@@ -1,6 +1,6 @@
 package org.tinywind.server.model.form;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,13 +16,13 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JoinForm extends BaseForm {
-    @ApiModelProperty(value = "아이디", required = true)
+    @Schema(description = "아이디", required = true)
     @NotNull("아이디")
     private String loginId;
-    @ApiModelProperty(value = "비밀번호", required = true)
+    @Schema(description = "비밀번호", required = true)
     @NotNull("비밀번호")
     private String password;
-    @ApiModelProperty(value = "비밀번호 확인", required = true)
+    @Schema(description = "비밀번호 확인", required = true)
     @NotNull("비밀번호 확인")
     private String passwordConfirm;
     @NotNull("프로필 이미지")

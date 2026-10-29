@@ -12,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -32,11 +31,6 @@ public class RootConfig {
     @Bean
     public SerializationConfig serializationConfig() {
         return objectMapper().getSerializationConfig();
-    }
-
-    @Bean
-    public AsyncRestTemplate asyncRestTemplate() {
-        return new AsyncRestTemplate();
     }
 
     @Bean

@@ -26,7 +26,7 @@
 </head>
 <body class="bcolor-back">
 
-<form:form id="login-form" commandName="form" cssClass="login-form -json-submit" action="${pageContext.request.contextPath}/api/user/login" data-done="after">
+<form:form id="login-form" modelAttribute="form" cssClass="login-form -json-submit" action="${pageContext.request.contextPath}/api/user/login" data-done="after">
 
     <form:input autocomplete="false" path="id" placeholder="아이디"/>
 

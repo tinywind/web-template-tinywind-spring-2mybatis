@@ -1,6 +1,6 @@
 package org.tinywind.server.util.page;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * @author tinywind
@@ -10,7 +10,7 @@ public class PageForm extends PageQueryableForm {
     @PageQueryable
     protected Integer page = 0;
 
-    @ApiModelProperty("반환 레코드 갯수")
+    @Schema(description = "반환 레코드 갯수")
     @PageQueryable
     protected Integer limit = 10;
 
