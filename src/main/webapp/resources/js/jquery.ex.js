@@ -310,10 +310,17 @@
 
         const emptynull = $(this).attr('data-emptynull') === "true";
 
+        function isContainer(value) {
+            if (value === null || typeof value !== 'object') return false;
+            const prototype = Object.getPrototypeOf(value);
+            return Array.isArray(value) || prototype === null || prototype === Object.prototype;
+        }
+
         function set(name, multiple, value) {
             const members = name.split('.');
 
             for (let target = data, i = 0; i < members.length; i++) {
+                if (!isContainer(target)) return;
                 const last = i === members.length - 1;
                 const member = members[i];
                 if (member === '__proto__' || member === 'constructor' || member === 'prototype') return;
@@ -323,23 +330,28 @@
                     const attr = checkMap[2];
                     if (key === '__proto__' || key === 'constructor' || key === 'prototype'
                         || attr === '__proto__' || attr === 'constructor' || attr === 'prototype') return;
-                    if (target[key] === undefined) target[key] = Object.create(null);
+                    if (!Object.prototype.hasOwnProperty.call(target, key)) target[key] = Object.create(null);
+                    if (!isContainer(target[key])) return;
                     target = target[key];
                     if (last) {
-                        if (multiple) if (!target[attr]) target[attr] = [];
-                        if (multiple) target[attr].push(value);
-                        else target[attr] = value;
+                        if (multiple) {
+                            if (!Object.prototype.hasOwnProperty.call(target, attr)) target[attr] = [];
+                            if (!Array.isArray(target[attr])) return;
+                            target[attr].push(value);
+                        } else target[attr] = value;
                     } else {
-                        if (target[attr] === undefined) target[attr] = Object.create(null);
+                        if (!Object.prototype.hasOwnProperty.call(target, attr)) target[attr] = Object.create(null);
                         target = target[attr];
                     }
                 } else {
                     if (last) {
-                        if (multiple) if (!target[member]) target[member] = [];
-                        if (multiple) target[member].push(value);
-                        else target[member] = value;
+                        if (multiple) {
+                            if (!Object.prototype.hasOwnProperty.call(target, member)) target[member] = [];
+                            if (!Array.isArray(target[member])) return;
+                            target[member].push(value);
+                        } else target[member] = value;
                     } else {
-                        if (target[member] === undefined) target[member] = Object.create(null);
+                        if (!Object.prototype.hasOwnProperty.call(target, member)) target[member] = Object.create(null);
                         target = target[member];
                     }
                 }

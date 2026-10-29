@@ -24,3 +24,5 @@ hs_err_pid*
 *.iml
 /*.mv.db
 /*.trace.db
+/.tmp/
+/node_modules/
